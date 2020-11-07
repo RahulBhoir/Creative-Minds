@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{% for draft in post_list %}
+
+{% if draft.author == user %}
+<h1><a href="{% url 'post_detail' pk=draft.pk %}">{{draft.title}}</a></h1>
+<p>{{draft.create_date|date:"d-M-Y"}}</p>
+{% endif %}
+
+
+{% endfor %}
+
+{% endif %}
+
+{% endblock content %}
