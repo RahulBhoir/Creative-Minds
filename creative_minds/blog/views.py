@@ -27,6 +27,9 @@ class PostCreationView(LoginRequiredMixin, CreateView):
     # fields = ['author', 'title', 'text']
     form_class = PostCreationForm
 
+    def get_success_url(self):
+        return reverse('post_detail', kwargs={'pk': self.object.pk})
+
 
 class PostDetailView(DetailView):
     template_name = 'blog/post_detail.html'
@@ -52,5 +55,4 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish_post()
-    post.save()
-    return redirect('post_detail')
+    return redirect('home')
