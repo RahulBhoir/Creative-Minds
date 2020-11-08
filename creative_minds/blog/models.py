@@ -13,8 +13,8 @@ class Post(models.Model):
     publish_date = models.DateTimeField(blank=True, null=True)
 
     @staticmethod
-    def get_absolute_url():
-        return reverse_lazy('home')
+    def get_absolute_url(self):
+        return reverse_lazy('post_detail', kwargs={'pk': self.pk})
 
     def publish_post(self):
         self.publish_date = timezone.now()
