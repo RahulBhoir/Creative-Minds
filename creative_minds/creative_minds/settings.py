@@ -57,7 +57,8 @@ ROOT_URLCONF = 'creative_minds.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, ],
+        'DIRS': [TEMPLATE_DIR,
+                 os.path.join(BASE_DIR, 'user/templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
