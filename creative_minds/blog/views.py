@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
+from django.views.generic import (TemplateView, ListView, CreateView,
+                                  DetailView, UpdateView, DeleteView)
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import logout_then_login
@@ -50,6 +51,11 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'blog/update_post.html'
     form_class = PostCreationForm
     model = Post
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    success_url = '/'
 
 
 def post_publish(request, pk):
