@@ -10,7 +10,7 @@
 
 {% if user == object.author %}
 <button><a href="{% url 'post_update' pk=object.pk%}">Edit</a></button>
-<button><a href="#">Delete</a></button>
+<button><a class='btn btn-warning' href="{% url 'post_delete' pk=object.pk %}">Delete</a></button>
 {% endif %}
 
 {% if object.publish_date %}
