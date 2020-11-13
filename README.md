@@ -1,4 +1,4 @@
 # Creative-Minds
-This is a website for posting blogs
-Front-end: HTML, CSS
+This is a website for posting blogs <br>
+Front-end: HTML, CSS <br>
 Back-end: Django
