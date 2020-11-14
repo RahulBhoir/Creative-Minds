@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from blog.models import Post
+from .models import Post
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -12,7 +12,25 @@ class UserRegistrationForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class PostCreationForm(forms.ModelForm):
+class PostCreationForm(forms.Form):
+    title = forms.CharField()
+    text = forms.CharField(widget=forms.Textarea)
+    #
+    # class Meta:
+    #     model = Post
+    #     fields = ['title', 'text']
+        # widgets = {
+        #     'title': forms.TextInput(attrs={'class': 'textinputclass'}),
+        #     'text': forms.Textarea(attrs={'class': 'editable medium-editor-textarea postcontent'})
+        # }
+
+
+class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['author', 'title', 'text']
+        fields = ['title', 'text']
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'textinputclass'}),
+            'text': forms.Textarea(attrs={'class': 'editable medium-editor-textarea postcontent'})
+        }

@@ -8,11 +8,10 @@ from django.urls import reverse_lazy
 class Post(models.Model):
     title = models.CharField(max_length=256)
     text = models.TextField()
-    author = models.ForeignKey(User, default=0, on_delete=models.SET_DEFAULT)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     create_date = models.DateTimeField(default=timezone.now)
     publish_date = models.DateTimeField(blank=True, null=True)
 
-    @staticmethod
     def get_absolute_url(self):
         return reverse_lazy('post_detail', kwargs={'pk': self.pk})
 
