@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import (TemplateView, ListView, CreateView,
+from django.views.generic import (TemplateView, ListView,
                                   DetailView, UpdateView, DeleteView)
-from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import logout_then_login
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
-from blog.models import Post
-from blog.forms import PostCreationForm, UserRegistrationForm
+from .models import Post
+from .forms import PostCreationForm, PostUpdateForm
 
 
 # Create your views here.
@@ -22,14 +21,19 @@ class HomePageView(ListView):
         return Post.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')
 
 
-class PostCreationView(LoginRequiredMixin, CreateView):
-    template_name = 'blog/create_post.html'
-    model = Post
-    # fields = ['author', 'title', 'text']
-    form_class = PostCreationForm
-
-    def get_success_url(self):
-        return reverse('post_detail', kwargs={'pk': self.object.pk})
+@login_required
+def create_post(request):
+    if request.method == "POST":
+        form = PostCreationForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            text = form.cleaned_data['text']
+            author = request.user
+            post = Post.objects.create(title=title, text=text, author=author)
+            return redirect(reverse('post_detail', kwargs={'pk': post.pk}))
+    else:
+        form = PostCreationForm()
+    return render(request, 'blog/create_post.html', {'form': form})
 
 
 class PostDetailView(DetailView):
@@ -45,15 +49,22 @@ class PostDraftView(LoginRequiredMixin, ListView):
         return Post.objects.filter(publish_date__isnull=True).order_by('-publish_date')
 
 
+@login_required
+def published_post(request):
+    posts = Post.objects.filter(author=request.user, publish_date__isnull=False).order_by('-publish_date')
+    return render(request, 'blog/published_post.html', {'post_list': posts})
+
+
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     login_url = '/login/'
     redirect_field_name = 'blog/post_detail.html'
     template_name = 'blog/update_post.html'
-    form_class = PostCreationForm
+    form_class = PostUpdateForm
     model = Post
 
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/login/'
     model = Post
     success_url = '/'
 

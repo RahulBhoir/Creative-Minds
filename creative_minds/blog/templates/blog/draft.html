@@ -7,11 +7,12 @@
 {% for draft in post_list %}
 
 {% if draft.author == user %}
-<h1><a href="{% url 'post_detail' pk=draft.pk %}">{{draft.title}}</a></h1>
-<p>{{draft.create_date|date:"d-M-Y"}}</p>
-{% endif %}
+<div class="jumbotron">
+    <h1><a href="{% url 'post_detail' pk=draft.pk %}">{{draft.title}}</a></h1>
+    <p>{{draft.create_date|date:"d-M-Y"}}</p>
+    {% endif %}
 
-
+</div>
 {% endfor %}
 
 {% endif %}
