@@ -4,8 +4,8 @@
 {% block content %}
 {% if user.is_authenticated %}
 <h2>{{object.title}}</h2>
-<p>{{object.author}}</p>
-<p>{{object.text}}</p>
+<p>Author: {{object.author}}</p>
+<p>{{object.text|safe|linebreaksbr}}</p>
 {% endif %}
 
 {% if user == object.author %}
