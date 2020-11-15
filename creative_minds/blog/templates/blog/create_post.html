@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{%load static %}
 {% load crispy_forms_tags %}
 {% block content %}
 
 {% if user.is_authenticated %}
-<div class="container mt-1">
+<div id="div_1" class="container mt-1">
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy}}
