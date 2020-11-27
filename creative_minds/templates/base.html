@@ -11,7 +11,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- our css file -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/master.css' %}">
 
     <!--    medium style editor-->
     <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
@@ -20,11 +20,12 @@
 
     <!--    Fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Russo+One&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="{% url 'home' %}">Creative Minds</a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -79,7 +80,7 @@
 
 
     </nav>
-    <div class="container">
+    <div class="container" style="border: 1px solid black;">
         {% block content %}
         {% endblock %}
     </div>

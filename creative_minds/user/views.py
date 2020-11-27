@@ -7,10 +7,9 @@ from django.urls import reverse
 from django.utils import timezone
 from blog.models import Post
 from blog.forms import PostCreationForm, UserRegistrationForm
-# Create your views here.
+
 
 # Registration
-
 
 def register_user(request):
     if request.method == "POST":

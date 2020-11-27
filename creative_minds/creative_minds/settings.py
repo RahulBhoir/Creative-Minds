@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
     'crispy_forms',
+    'blog',
+    'user',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -70,6 +71,13 @@ TEMPLATES = [
         },
     },
 ]
+
+# overwrite the django default behaviour for user model
+AUTH_USER_MODEL = 'user.Account'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.RemoteUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 WSGI_APPLICATION = 'creative_minds.wsgi.application'
 
@@ -120,9 +128,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 # Login
 # after login user should go to home page
