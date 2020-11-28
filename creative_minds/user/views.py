@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
-from django.http import HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
+# from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
+# from django.http import HttpResponse
+# from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import logout_then_login
 from django.urls import reverse
-from django.utils import timezone
-from blog.models import Post
-from blog.forms import PostCreationForm, UserRegistrationForm
+# from django.utils import timezone
+# from blog.models import Post
+# from blog.forms import PostCreationForm
+from .forms import UserRegistrationForm
 
 
 # Registration
